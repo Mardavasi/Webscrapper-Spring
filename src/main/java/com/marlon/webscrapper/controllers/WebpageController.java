@@ -1,5 +1,6 @@
 package com.marlon.webscrapper.controllers;
 
+import com.marlon.webscrapper.Service.WebscrapperService;
 import com.marlon.webscrapper.models.Webpage;
 import com.marlon.webscrapper.repository.WebpageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -15,6 +17,9 @@ public class WebpageController {
 
     @Autowired
     WebpageRepository repository;
+
+    @Autowired
+    WebscrapperService webscrapperService;
 
     @GetMapping("/api/search")
     public List<Webpage> search(@RequestParam("query") String query){
@@ -25,6 +30,14 @@ public class WebpageController {
 
         }
         return list;
+
+    }
+
+    @GetMapping("/api/webscrapper")
+    public void scrapeAndSave(@RequestParam("url") String url) throws IOException {
+        webscrapperService.scrapeAndSave(url);
+
+
 
     }
 }
