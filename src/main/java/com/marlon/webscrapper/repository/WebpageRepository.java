@@ -12,6 +12,10 @@ import java.util.List;
 public interface WebpageRepository extends CrudRepository<Webpage, Integer> {
     // Native Sql = SELECT * FROM `webpage` WHERE domain LIKE '%google%' OR description LIKE '%google%' OR title LIKE '%google%' OR url LIKE '%google%';
 
-    @Query("SELECT w FROM Webpage w WHERE w.domain LIKE %:text% OR w.description LIKE %:text%  OR w.title LIKE %:text%  OR w.url LIKE %:text% order by rank DESC ")
+    // Native SQL: SELECT * FROM `webpage` WHERE domain LIKE '%google%' OR description LIKE '%google%' OR title LIKE '%google%' OR url LIKE '%google%';
+    @Query("SELECT w FROM Webpage w WHERE w.domain LIKE %:text% OR w.description LIKE %:text% OR w.title LIKE %:text% OR w.url LIKE %:text% order by rank DESC")
     List<Webpage> findByText(@Param("text") String text);
+
+    Webpage findByUrl(String url);
 }
+

@@ -1,6 +1,7 @@
 package com.marlon.webscrapper.controllers;
 
-import com.marlon.webscrapper.Service.WebscrapperService;
+import com.marlon.webscrapper.Services.SpiderService;
+import com.marlon.webscrapper.Services.WebscrapperService;
 import com.marlon.webscrapper.models.Webpage;
 import com.marlon.webscrapper.repository.WebpageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class WebpageController {
     @Autowired
     WebscrapperService webscrapperService;
 
+    @Autowired
+    SpiderService spiderService;
+
     @GetMapping("/api/search")
     public List<Webpage> search(@RequestParam("query") String query){
         List<Webpage> list = new ArrayList<>();
@@ -36,6 +40,13 @@ public class WebpageController {
     @GetMapping("/api/webscrapper")
     public void scrapeAndSave(@RequestParam("url") String url) throws IOException {
         webscrapperService.scrapeAndSave(url);
+
+
+
+    }
+    @GetMapping("/api/start")
+    public void scrapeAndSave() throws IOException {
+        spiderService.start();
 
 
 
